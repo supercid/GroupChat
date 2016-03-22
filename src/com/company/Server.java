@@ -24,6 +24,7 @@ public class Server extends JFrame implements ActionListener
         panel = new JPanel();
         newMsg = new JTextField();
         chatHistory = new JTextArea();
+        chatHistory.setEditable(false);
         send = new JButton("Send");
 
         this.setSize(500, 500);
@@ -44,6 +45,8 @@ public class Server extends JFrame implements ActionListener
 
         this.setTitle("Server ");
         send.addActionListener(this);
+        newMsg.addActionListener(this);
+        newMsg.requestFocusInWindow();
 
         server = new ServerSocket(2000, 1, InetAddress.getLocalHost());
         chatHistory.setText("\nWaiting for Client ");
@@ -70,16 +73,18 @@ public class Server extends JFrame implements ActionListener
         }//end while
     }//end Server()
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
-        if ((e.getSource() == send) && (newMsg.getText() != "")) {
-            chatHistory.setText(chatHistory.getText() + "\nME:" + newMsg.getText());
+        if (! newMsg.getText().trim().isEmpty() ) {
+//        if (newMsg.getText() != NULL) {
+            chatHistory.setText(chatHistory.getText() + "\nMe:" + newMsg.getText());
             try {
-                DataOutputStream dos = new DataOutputStream(
-                        conn.getOutputStream());
+                DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
                 dos.writeUTF(newMsg.getText());
             } //end try
             catch (Exception e1) {
+                chatHistory.setText(chatHistory.getText() + "\nMessage sending fail: Network Error");
                 try {
                     Thread.sleep(3000);
                     System.exit(0);

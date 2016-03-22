@@ -7,20 +7,19 @@ import java.net.*;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
-public class Client extends JFrame implements ActionListener
-{
+public class Client extends JFrame implements ActionListener {
     //declare variables
     static Socket conn;
     JPanel panel;
-    JTextField newMsg;
     JTextArea chatHistory;
+    JTextField newMsg;
     JButton send;
 
-    public Client() throws UnknownHostException, IOException
-    {
+    public Client() throws UnknownHostException, IOException {
         panel = new JPanel();
         newMsg = new JTextField();
         chatHistory = new JTextArea();
+        chatHistory.setEditable(false);
         send = new JButton("Send");
 
         this.setSize(500, 500);
@@ -40,6 +39,8 @@ public class Client extends JFrame implements ActionListener
         panel.add(send);
 
         send.addActionListener(this);
+        newMsg.addActionListener(this);
+        newMsg.requestFocusInWindow();
         conn = new Socket(InetAddress.getLocalHost(), 2000);
 
 		/*
@@ -71,11 +72,11 @@ public class Client extends JFrame implements ActionListener
         }//end while
     }//end Client()
 
-    public void actionPerformed(ActionEvent e)
-    {
+    @Override
+    public void actionPerformed(ActionEvent e) {
 
-        if ((e.getSource() == send) && (newMsg.getText() != ""))
-        {
+        if (! newMsg.getText().trim().isEmpty() ) {
+//        if (newMsg.getText() != NULL) {
             chatHistory.setText(chatHistory.getText() + "\nMe:" + newMsg.getText());
             try {
                 DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
@@ -94,7 +95,7 @@ public class Client extends JFrame implements ActionListener
             }//end catch
             newMsg.setText("");
         }//end if
-    }//end ActionPerformaed()
+    }//end ActionPerformed()
 
     public static void main(String[] args) throws UnknownHostException, IOException {
         new Client();
