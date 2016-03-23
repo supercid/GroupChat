@@ -8,12 +8,12 @@ import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class Client extends JFrame implements ActionListener {
-    //declare variables
+
     static Socket conn;
-    JPanel panel;
-    JTextArea chatHistory;
-    JTextField newMsg;
-    JButton send;
+    JPanel        panel;
+    JTextArea     chatHistory;
+    JTextField    newMsg;
+    JButton       send;
 
     public Client() throws UnknownHostException, IOException {
         panel = new JPanel();
@@ -49,8 +49,8 @@ public class Client extends JFrame implements ActionListener {
 		 * ChatHistory.setText("\nConnected to Server");
 		 */
 
-        chatHistory.setText("\nConnected to Server");
-        this.setTitle("\nClient ");
+        chatHistory.setText("Connected to Server");
+        this.setTitle("Client ");
 
         while (true) {
             try {
@@ -62,7 +62,7 @@ public class Client extends JFrame implements ActionListener {
                 chatHistory.setText(chatHistory.getText() + "\nMessage sending fail: Network Error");
                 try {
                     Thread.sleep(3000);
-                    System.exit(0);
+                    System.exit(1);
                 } //end inner try
                 catch (InterruptedException e) {
                     // TODO Auto-generated catch block

@@ -7,8 +7,7 @@ import java.net.*;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
-public class Server extends JFrame implements ActionListener
-{
+public class Server extends JFrame implements ActionListener {
     //declare variables
     static ServerSocket server;
     static Socket conn;
@@ -49,7 +48,7 @@ public class Server extends JFrame implements ActionListener
         newMsg.requestFocusInWindow();
 
         server = new ServerSocket(2000, 1, InetAddress.getLocalHost());
-        chatHistory.setText("\nWaiting for Client ");
+        chatHistory.setText("Waiting for Client ");
         conn = server.accept();
         chatHistory.setText(chatHistory.getText() + "\nClient Found");
 
@@ -63,7 +62,7 @@ public class Server extends JFrame implements ActionListener
                 chatHistory.setText(chatHistory.getText() + "\nMessage sending fail:Network Error");
                 try {
                     Thread.sleep(3000);
-                    System.exit(0);
+                    System.exit(1);
                 } //end inner try
                 catch (InterruptedException e) {
                     // TODO Auto-generated catch block
@@ -98,8 +97,7 @@ public class Server extends JFrame implements ActionListener
         }//end if
     }//end ActionPerformed()
 
-    public static void main(String[] args) throws UnknownHostException,IOException
-    {
+    public static void main(String[] args) throws UnknownHostException,IOException {
         new Server();
     }//end main()
 }//end class()
