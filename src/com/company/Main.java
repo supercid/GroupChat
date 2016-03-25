@@ -6,8 +6,7 @@ import java.net.UnknownHostException;
 public class Main {
 
     public static void main(String[] args) throws UnknownHostException,IOException{
+        new Login();
 
-        final Client client = new Client();
-        client.setVisible(true);
     }
 }

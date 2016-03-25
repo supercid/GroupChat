@@ -86,14 +86,18 @@ public class Login extends JFrame {
 
                     while (scan.hasNext()) {
                         if(puname.equals(usertxt) && ppaswd.equals(passtxt)) {
-//                            MainMenu menu =new MainMenu();
                             dispose();
+                            try {
+                                new Client();
+                            } catch (IOException e1) {
+                                e1.printStackTrace();
+                            }
+
                         }
                         usertxt = scan.nextLine();
                         passtxt = scan.nextLine();
 
                     }
-
 
                     if(puname.equals("") && ppaswd.equals("")){
                         JOptionPane.showMessageDialog(null,"Please insert Username and Password");
@@ -114,7 +118,7 @@ public class Login extends JFrame {
 
         newUSer.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
-//                NewUser user = new NewUser();
+                NewUser user = new NewUser();
                 dispose();
 
             }
@@ -123,6 +127,11 @@ public class Login extends JFrame {
 
     public static void main(String[] args)  {
         new Login();
+//        try {
+//            new Server();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }//end main()
 
 }
